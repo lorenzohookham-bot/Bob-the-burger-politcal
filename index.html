@@ -1,321 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historical World Leaders: Political Perspectives</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-left: #ef4444;
-            --accent-centre: #3b82f6;
-            --accent-right: #10b981;
-            --border-color: #334155;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 2rem 1rem;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        header h1 {
-            font-size: 2.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            color: var(--text-muted);
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            border: 2px solid var(--border-color);
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn:hover {
-            border-color: var(--text-muted);
-        }
-
-        .btn.active[data-lens="left"] {
-            background-color: var(--accent-left);
-            border-color: var(--accent-left);
-        }
-
-        .btn.active[data-lens="centre"] {
-            background-color: var(--accent-centre);
-            border-color: var(--accent-centre);
-        }
-
-        .btn.active[data-lens="right"] {
-            background-color: var(--accent-right);
-            border-color: var(--accent-right);
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .card .meta {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-        }
-
-        .card p {
-            font-size: 0.95rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .card .tag {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .tag-positive { background-color: rgba(16, 185, 129, 0.2); color: #34d399; }
-        .tag-critical { background-color: rgba(239, 68, 68, 0.2); color: #f87171; }
-
-        footer {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            margin-top: 3rem;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garage 3D – Build your own car</title>
+<style>
+  :root{
+    --bg:#16181d; --panel:#1f2229; --line:#343944; --text:#eceae4; --mute:#9aa0ab; --accent:#ff8a1f;
+  }
+  *{box-sizing:border-box;margin:0}
+  html,body{height:100%}
+  body{font-family:"Trebuchet MS","Segoe UI",sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden}
+  header{display:flex;align-items:center;gap:24px;padding:12px 20px;border-bottom:1px solid var(--line);background:var(--panel)}
+  header h1{font:700 20px Georgia,serif;letter-spacing:.5px;margin-right:auto}
+  nav button{background:none;border:0;color:var(--mute);font:600 15px inherit;font-family:inherit;padding:8px 14px;cursor:pointer;border-bottom:3px solid transparent}
+  nav button.on{color:var(--text);border-color:var(--accent)}
+  nav button:focus-visible,.opt:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  main{flex:1;display:grid;grid-template-columns:1fr 340px;min-height:0}
+  .stage{position:relative;min-height:0}
+  canvas{display:block;width:100%;height:100%;cursor:grab}
+  canvas:active{cursor:grabbing}
+  .hint{position:absolute;left:16px;bottom:12px;font-size:13px;color:var(--mute)}
+  aside{background:var(--panel);border-left:1px solid var(--line);padding:18px;overflow-y:auto}
+  aside h2{font:700 15px Georgia,serif;margin:18px 0 8px}
+  aside h2:first-child{margin-top:0}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{background:#2a2e37;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:8px 12px;font:inherit;font-size:14px;cursor:pointer}
+  .opt.on{border-color:var(--accent);background:#3a2c1c}
+  .swatch{width:34px;height:34px;padding:0;border-radius:50%}
+  .swatch.on{outline:3px solid var(--accent);outline-offset:2px}
+  label{display:block;font-size:14px;margin:12px 0 4px;color:var(--mute)}
+  label b{color:var(--text);float:right}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .stats{margin-top:20px;border-top:1px solid var(--line);padding-top:12px}
+  .stat{display:flex;justify-content:space-between;padding:5px 0;font-size:15px}
+  .stat b{color:var(--accent)}
+  .go{width:100%;margin-top:16px;background:var(--accent);color:#1a1209;border:0;border-radius:6px;padding:11px;font:700 15px inherit;font-family:inherit;cursor:pointer}
+  .page{display:none}.page.on{display:grid}
+  @media(max-width:800px){main{grid-template-columns:1fr;grid-template-rows:45% 55%}aside{border-left:0;border-top:1px solid var(--line)}}
+</style>
 </head>
 <body>
+<header>
+  <h1>Garage 3D</h1>
+  <nav>
+    <button id="tab-car" class="on">1 · Car builder</button>
+    <button id="tab-eng">2 · Engine lab</button>
+  </nav>
+</header>
 
-<div class="container">
-    <header>
-        <h1>World Leaders & Political Frameworks</h1>
-        <p>Explore historical evaluations of key world leaders analyzed through different political and economic perspectives.</p>
-    </header>
+<!-- PAGE 1 -->
+<main class="page on" id="page-car">
+  <div class="stage"><canvas id="cv-car"></canvas><div class="hint">Drag to rotate · scroll to zoom</div></div>
+  <aside>
+    <h2>Body</h2><div class="opts" id="o-body"></div>
+    <h2>Paint</h2><div class="opts" id="o-color"></div>
+    <h2>Wheels</h2><div class="opts" id="o-wheel"></div>
+    <h2>Wheel size</h2><div class="opts" id="o-wsize"></div>
+    <h2>Spoiler</h2><div class="opts" id="o-spoil"></div>
+    <h2>Extras</h2><div class="opts" id="o-extra"></div>
+    <div class="stats" id="stats-car"></div>
+    <button class="go" id="to-eng">Build the engine</button>
+  </aside>
+</main>
 
-    <div class="controls">
-        <button class="btn active" data-lens="left" onclick="switchLens('left')">Left-Leaning Lens</button>
-        <button class="btn" data-lens="centre" onclick="switchLens('centre')">Centrist Lens</button>
-        <button class="btn" data-lens="right" onclick="switchLens('right')">Right-Leaning Lens</button>
-    </div>
+<!-- PAGE 2 -->
+<main class="page" id="page-eng">
+  <div class="stage"><canvas id="cv-eng"></canvas><div class="hint">Drag to rotate · scroll to zoom</div></div>
+  <aside>
+    <h2>Cylinders</h2><div class="opts" id="o-cyl"></div>
+    <h2>Layout</h2><div class="opts" id="o-lay"></div>
+    <h2>Induction</h2><div class="opts" id="o-ind"></div>
+    <label>Displacement <b id="v-disp"></b></label><input type="range" id="r-disp" min="1.0" max="7.0" step="0.1">
+    <label>Compression ratio <b id="v-comp"></b></label><input type="range" id="r-comp" min="8" max="13" step="0.5">
+    <label>Redline <b id="v-rpm"></b></label><input type="range" id="r-rpm" min="5500" max="9500" step="100">
+    <div class="stats" id="stats-eng"></div>
+    <button class="go" id="to-car">Back to the car</button>
+  </aside>
+</main>
 
-    <main id="content">
-        <!-- Content dynamically injected via JavaScript -->
-    </main>
-
-    <footer>
-        <p>Historical evaluation depends heavily on political values, economic priorities, and historical context.</p>
-    </footer>
-</div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-    const data = {
-        left: {
-            description: "The left-leaning perspective emphasizes social equality, state-supported public welfare, public healthcare/education, labor rights, and public oversight of key industries.",
-            positiveLeaders: [
-                {
-                    name: "Clement Attlee",
-                    role: "Prime Minister of the UK (1945–1951)",
-                    highlights: "Established the National Health Service (NHS), expanded social security, and oversaw key welfare reforms post-WWII.",
-                    critique: "Faced severe economic strain, post-war austerity, and currency devaluation challenges."
-                },
-                {
-                    name: "Franklin D. Roosevelt",
-                    role: "President of the US (1933–1945)",
-                    highlights: "Implemented the New Deal, introduced Social Security, regulated financial markets, and expanded public works.",
-                    critique: "Faced criticism for executive overreach and controversial policies like Japanese-American internment."
-                }
-            ],
-            criticalLeaders: [
-                {
-                    name: "Margaret Thatcher",
-                    role: "Prime Minister of the UK (1979–1990)",
-                    highlights: "Privatized state industries, deregulated financial markets, and reduced public spending.",
-                    critique: "Critiqued by the left for rising wealth inequality, regional industrial decline, and weakening trade unions."
-                },
-                {
-                    name: "Augusto Pinochet",
-                    role: "Dictator of Chile (1973–1990)",
-                    highlights: "Implemented free-market economic reforms under advice from free-market economists.",
-                    critique: "Widespread human rights abuses, violent repression of political dissent, and suppression of labor unions."
-                }
-            ]
-        },
-        centre: {
-            description: "The centrist perspective favors pragmatic governance, mixed market economies, institutional stability, democratic procedures, and incremental policy reform.",
-            positiveLeaders: [
-                {
-                    name: "Dwight D. Eisenhower",
-                    role: "President of the US (1953–1961)",
-                    highlights: "Balanced national budget, expanded the Interstate Highway System, maintained New Deal programs, and cautioned against the military-industrial complex.",
-                    critique: "Critiqued for cautious approach during the early civil rights movement and covert foreign operations."
-                },
-                {
-                    name: "Nelson Mandela",
-                    role: "President of South Africa (1994–1999)",
-                    highlights: "Led peaceful transition out of Apartheid, prioritized national reconciliation, democratic institution building, and economic stability.",
-                    critique: "Faced criticism from some factions for preserving existing economic ownership structures."
-                }
-            ],
-            criticalLeaders: [
-                {
-                    name: "Joseph Stalin",
-                    role: "Leader of the Soviet Union (1924–1953)",
-                    highlights: "Rapid industrialization of the Soviet Union and role in defeating Nazi Germany.",
-                    critique: "Totalitarian rule, extensive purges, political repression, labor camps (Gulags), and forced collectivization causing massive famine."
-                },
-                {
-                    name: "Adolf Hitler",
-                    role: "Führer of Germany (1933–1945)",
-                    highlights: "N/A",
-                    critique: "Facilitated global conflict in WWII, systematic genocide during the Holocaust, total destruction of democratic institutions."
-                }
-            ]
-        },
-        right: {
-            description: "The right-leaning perspective prioritizes individual liberty, free-market capitalism, reduced government regulation, deregulation, national security, and traditional institutions.",
-            positiveLeaders: [
-                {
-                    name: "Ronald Reagan",
-                    role: "President of the US (1981–1989)",
-                    highlights: "Championed tax cuts, deregulation, free markets, strong defense posture against communism, and economic expansion.",
-                    critique: "Critiqued for growing national debt, reduced social spending, and deregulation of financial sectors."
-                },
-                {
-                    name: "Margaret Thatcher",
-                    role: "Prime Minister of the UK (1979–1990)",
-                    highlights: "Restructured the UK economy through privatization, lower income tax rates, anti-inflationary monetary policies, and strong national defense.",
-                    critique: "Faced significant opposition from industrial sectors and labor unions."
-                }
-            ],
-            criticalLeaders: [
-                {
-                    name: "Mao Zedong",
-                    role: "Chairman of the Chinese Communist Party (1949–1976)",
-                    highlights: "Unification of China and establishment of the People's Republic of China.",
-                    critique: "Centralized state control, severe economic mismanagement during the Great Leap Forward causing widespread famine, and the destructive impacts of the Cultural Revolution."
-                },
-                {
-                    name: "Hugo Chávez",
-                    role: "President of Venezuela (1999–2013)",
-                    highlights: "Expanded social spending programs using oil revenues.",
-                    critique: "High inflation, nationalization of private industries, democratic backsliding, and long-term economic instability."
-                }
-            ]
-        }
-    };
+(function(){
+"use strict";
 
-    function switchLens(lensKey) {
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.dataset.lens === lensKey) {
-                btn.classList.add('active');
-            }
-        });
+/* ---------- shared state ---------- */
+const S = {
+  body:"coupe", color:0xd9381e, wheel:"sport", wsize:18, spoil:"none", extras:{lights:true, tint:false, stripe:false},
+  cyl:6, lay:"inline", ind:"turbo", disp:3.0, comp:10, rpm:7000
+};
+const BODIES = {
+  coupe:   {name:"Coupe",   len:4.2, h:.55, cabin:.5, cw:1.9, w:1.0,  mass:1350},
+  sedan:   {name:"Sedan",   len:4.8, h:.6,  cabin:.7, cw:2.5, w:1.0,  mass:1500},
+  hatch:   {name:"Hatchback",len:3.8,h:.65, cabin:.55,cw:1.9, w:1.0,  mass:1150},
+  truck:   {name:"Pickup",  len:5.2, h:.8,  cabin:.5, cw:1.5, w:1.05, mass:2100}
+};
+const COLORS=[0xd9381e,0xf2b705,0x2a6fdb,0x1e9b5a,0xeeeeee,0x16171a,0x8a3ffc];
+const WHEELS={sport:"Sport", classic:"Classic", mesh:"Mesh"};
+const LAYOUTS={inline:"Inline", v:"V", flat:"Flat"};
+const INDS={na:"Naturally aspirated", turbo:"Turbo", super:"Supercharger"};
 
-        const lensData = data[lensKey];
-        const contentArea = document.getElementById('content');
+/* ---------- ui helpers ---------- */
+const $=id=>document.getElementById(id);
+function buttons(id, items, get, set, swatch){
+  const box=$(id); box.innerHTML="";
+  Object.keys(items).forEach(k=>{
+    const b=document.createElement("button");
+    b.className="opt"+(swatch?" swatch":"");
+    if(swatch){b.style.background="#"+items[k].toString(16).padStart(6,"0");b.setAttribute("aria-label","Color "+k)}
+    else b.textContent=items[k].name||items[k];
+    b.onclick=()=>{set(isNaN(+k)||swatch?k:+k);refresh()};
+    b.dataset.k=k; box.appendChild(b);
+  });
+}
+function mark(id,val){[...$(id).children].forEach(b=>b.classList.toggle("on",b.dataset.k==String(val)))}
 
-        contentArea.innerHTML = `
-            <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 1.05rem; background: var(--card-bg); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-${lensKey});">
-                ${lensData.description}
-            </p>
+/* ---------- viewer factory (own orbit controls) ---------- */
+function makeViewer(canvas, dist){
+  const r=new THREE.WebGLRenderer({canvas,antialias:true});
+  r.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene(); scene.background=new THREE.Color(0x16181d);
+  scene.fog=new THREE.Fog(0x16181d,12,30);
+  const cam=new THREE.PerspectiveCamera(45,1,.1,100);
+  const v={r,scene,cam,az:.7,el:.3,d:dist,root:new THREE.Group(),auto:true};
+  scene.add(v.root);
+  scene.add(new THREE.HemisphereLight(0xffffff,0x333844,.8));
+  const sun=new THREE.DirectionalLight(0xffffff,1.1); sun.position.set(5,8,4); scene.add(sun);
+  const rim=new THREE.DirectionalLight(0xff8a1f,.5); rim.position.set(-6,3,-5); scene.add(rim);
+  const floor=new THREE.Mesh(new THREE.CircleGeometry(9,64),new THREE.MeshStandardMaterial({color:0x22252c,roughness:.9}));
+  floor.rotation.x=-Math.PI/2; floor.position.y=-.01; scene.add(floor);
+  let drag=false,lx=0,ly=0;
+  canvas.addEventListener("pointerdown",e=>{drag=true;v.auto=false;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId)});
+  canvas.addEventListener("pointerup",()=>drag=false);
+  canvas.addEventListener("pointermove",e=>{if(!drag)return;
+    v.az-=(e.clientX-lx)*.008; v.el=Math.max(.02,Math.min(1.4,v.el+(e.clientY-ly)*.006)); lx=e.clientX;ly=e.clientY});
+  canvas.addEventListener("wheel",e=>{e.preventDefault();v.d=Math.max(dist*.5,Math.min(dist*1.8,v.d*(1+e.deltaY*.001)))},{passive:false});
+  v.render=function(){
+    const w=canvas.clientWidth,h=canvas.clientHeight;
+    if(canvas.width!==w*r.getPixelRatio()||canvas.height!==h*r.getPixelRatio()){r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+    if(v.auto)v.az+=.004;
+    cam.position.set(Math.sin(v.az)*Math.cos(v.el)*v.d, Math.sin(v.el)*v.d+.6, Math.cos(v.az)*Math.cos(v.el)*v.d);
+    cam.lookAt(0,.6,0); r.render(scene,cam);
+  };
+  return v;
+}
+function clear(g){while(g.children.length){const c=g.children.pop();c.traverse&&c.traverse(o=>{o.geometry&&o.geometry.dispose()})}}
+const mat=(c,m=.4,r=.4)=>new THREE.MeshStandardMaterial({color:c,metalness:m,roughness:r});
+function box(w,h,d,m,x,y,z){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);return o}
 
-            <h2 class="section-title">Favorably Assessed under this Lens</h2>
-            <div class="grid">
-                ${lensData.positiveLeaders.map(leader => `
-                    <div class="card">
-                        <h3>${leader.name}</h3>
-                        <div class="meta">${leader.role}</div>
-                        <p><span class="tag tag-positive">Key Highlights</span></p>
-                        <p>${leader.highlights}</p>
-                        <p><span class="tag tag-critical">Common Counter-Points</span></p>
-                        <p>${leader.critique}</p>
-                    </div>
-                `).join('')}
-            </div>
-
-            <h2 class="section-title">Unfavorably Assessed under this Lens</h2>
-            <div class="grid">
-                ${lensData.criticalLeaders.map(leader => `
-                    <div class="card">
-                        <h3>${leader.name}</h3>
-                        <div class="meta">${leader.role}</div>
-                        <p><span class="tag tag-critical">Primary Criticism</span></p>
-                        <p>${leader.critique}</p>
-                        <p><span class="tag tag-positive">Noted Achievements</span></p>
-                        <p>${leader.highlights}</p>
-                    </div>
-                `).join('')}
-            </div>
-        `;
+/* ---------- CAR ---------- */
+let carV;
+function buildCar(){
+  const g=carV.root; clear(g);
+  const B=BODIES[S.body], paint=mat(S.color,.7,.25), dark=mat(0x111216,.2,.7);
+  const glass=mat(S.extras.tint?0x05070a:0x7fb4d6,.9,.1);
+  const L=B.len, W=1.8*B.w, rad=S.wsize*.0127+.12;      // wheel radius
+  const base=rad*.9;
+  // lower body
+  g.add(box(W,B.h,L,paint,0,base+B.h/2,0));
+  // cabin
+  const cl=L*B.cabin*(S.body==="truck"?.45:.55), cz=S.body==="truck"?L*.15:-L*.02;
+  const cab=box(W*.88,.5,cl,glass,0,base+B.h+.25,cz); g.add(cab);
+  g.add(box(W*.9,.05,cl*.95,paint,0,base+B.h+.52,cz));
+  if(S.body==="truck") g.add(box(W,.35,L*.38,paint,0,base+B.h+.18,-L*.3)); // bed walls
+  if(S.body==="truck") g.add(box(W*.85,.1,L*.34,dark,0,base+B.h+.02,-L*.3));
+  // hood scoop / grille
+  g.add(box(W*.7,.08,.04,dark,0,base+.25,L/2+.01));
+  // lights
+  const hl=mat(S.extras.lights?0xfff3b0:0x777777,0,.3); if(S.extras.lights){hl.emissive=new THREE.Color(0xffe27a);hl.emissiveIntensity=.8}
+  [-1,1].forEach(s=>{
+    g.add(box(.35,.12,.05,hl,s*W*.33,base+B.h*.7,L/2+.02));
+    g.add(box(.35,.1,.05,mat(0xc40000,0,.4),s*W*.33,base+B.h*.7,-L/2-.02));
+  });
+  // stripe
+  if(S.extras.stripe){g.add(box(.3,.02,L,mat(0xffffff,.1,.5),0,base+B.h+.005,0));g.add(box(.3,.02,cl,mat(0xffffff,.1,.5),0,base+B.h+.53,cz))}
+  // spoiler
+  if(S.spoil!=="none"){
+    const hgt=S.spoil==="wing"?.5:.18, z=-L/2+.1, y=base+B.h+(S.spoil==="wing"?.1:0);
+    g.add(box(W*.95,.06,.4,dark,0,y+hgt,z));
+    if(S.spoil==="wing")[-1,1].forEach(s=>g.add(box(.06,hgt,.1,dark,s*W*.35,y+hgt/2,z)));
+  }
+  // wheels
+  const tyre=mat(0x0b0b0d,0,.9), rimM=mat(0xc9ccd2,.9,.25);
+  [[-1,1],[1,1],[-1,-1],[1,-1]].forEach(([sx,sz])=>{
+    const w=new THREE.Group();
+    const t=new THREE.Mesh(new THREE.CylinderGeometry(rad,rad,.3,32),tyre); w.add(t);
+    const rm=new THREE.Mesh(new THREE.CylinderGeometry(rad*.68,rad*.68,.32,32),rimM); w.add(rm);
+    const n=S.wheel==="sport"?5:S.wheel==="classic"?0:12;
+    if(S.wheel==="classic"){w.add(new THREE.Mesh(new THREE.CylinderGeometry(rad*.2,rad*.2,.36,16),mat(0x888888,.9,.2)))}
+    for(let i=0;i<n;i++){
+      const sp=new THREE.Mesh(new THREE.BoxGeometry(rad*(S.wheel==="mesh"?.06:.14),.34,rad*.62),dark);
+      const piv=new THREE.Group(); sp.position.z=rad*.32; piv.add(sp); piv.rotation.y=i/n*Math.PI*2; w.add(piv);
     }
+    w.rotation.z=Math.PI/2; w.position.set(sx*(W/2+.02),rad,sz*L*.32); g.add(w);
+  });
+}
+function carStats(){
+  const B=BODIES[S.body], e=engineStats();
+  const mass=B.mass+e.weight+(S.spoil==="wing"?15:S.spoil==="lip"?5:0)+(S.wsize-16)*6;
+  const drag=B.cw*(S.spoil==="wing"?1.12:S.spoil==="lip"?1.04:1)*(S.extras.stripe?1:1);
+  const top=Math.min(Math.round(Math.cbrt(e.hp*745.7*.7/(.5*1.2*(drag*.27)*.9))*3.6*(1+(S.wsize-18)*.004)),380);
+  const zt=Math.max(2.2,Math.sqrt(mass/(e.hp*.78))*3.1*(S.body==="truck"?1.1:1)).toFixed(1);
+  const grip=(S.spoil==="wing"?1.25:S.spoil==="lip"?1.1:1)*(S.wsize>=19?1.1:1);
+  return {mass:Math.round(mass),top,zt,grip,hp:e.hp};
+}
+function showCarStats(){
+  const s=carStats();
+  $("stats-car").innerHTML=[
+    ["Power",s.hp+" hp"],["Weight",s.mass+" kg"],["0–100 km/h",s.zt+" s"],["Top speed",s.top+" km/h"],["Cornering grip",s.grip.toFixed(2)+" g"]
+  ].map(a=>`<div class="stat">${a[0]}<b>${a[1]}</b></div>`).join("");
+}
 
-    // Initial render
-    switchLens('left');
+/* ---------- ENGINE ---------- */
+let engV, pistons=[], crank=null;
+function engineStats(){
+  const ind={na:1,turbo:1.35,super:1.25}[S.ind];
+  const eff=.9+(S.comp-10)*.03;
+  const hp=Math.round(S.disp*62*ind*eff*(S.rpm/7000)*(S.cyl>=8?1.04:S.cyl===4?.96:1));
+  const tq=Math.round(hp*7127/(S.rpm*.72)*(S.ind==="turbo"?1.1:1));
+  const weight=Math.round(S.cyl*18+S.disp*22+(S.ind==="na"?0:25)+(S.lay==="v"?-8:0));
+  const mpg=(14/(S.disp*(S.ind==="na"?1:1.1)*(S.rpm/7000)*.5+.6)*(S.comp/10)).toFixed(1);
+  const bad=(S.lay==="flat"&&S.cyl===8)||(S.lay==="v"&&S.cyl===4);
+  return {hp,tq,weight,mpg,rel:bad?"Unusual":"Standard"};
+}
+function validLayouts(){ // keep combinations sensible
+  if(S.cyl===4&&S.lay==="v")S.lay="inline";
+  if(S.cyl===8&&S.lay==="inline")S.lay="v";
+  if(S.cyl===8&&S.lay==="flat")S.lay="v";
+}
+function buildEngine(){
+  const g=engV.root; clear(g); pistons=[];
+  const n=S.cyl, metal=mat(0x9aa0ab,.9,.3), block=mat(0x3c414c,.7,.45), head=mat(0x6a707c,.8,.35), accent=mat(0xff8a1f,.5,.4);
+  const bore=.34+S.disp*.025, stroke=.28+S.disp*.03;
+  let banks;
+  if(S.lay==="inline") banks=[{ang:0,cnt:n}];
+  else banks=[{ang:S.lay==="flat"?Math.PI/2:Math.PI/6,cnt:n/2},{ang:S.lay==="flat"?-Math.PI/2:-Math.PI/6,cnt:n/2}];
+  const pitch=bore*1.35, cl=pitch*(banks[0].cnt);
+  // crankshaft + sump
+  g.add(box(cl+.5,.35,1.0,block,0,.25,0));
+  crank=new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,cl+.7,16),metal); crank.rotation.z=Math.PI/2; crank.position.y=.65; g.add(crank);
+  banks.forEach((b,bi)=>{
+    const bank=new THREE.Group(); bank.rotation.z=b.ang; bank.position.y=.65; g.add(bank);
+    bank.add(box(cl+.2,.9,bore+.2,block,0,.55,0));            // block
+    bank.add(box(cl+.25,.22,bore+.3,head,0,1.12,0));          // head
+    bank.add(box(cl+.1,.12,bore+.05,accent,0,1.3,0));         // cam cover
+    for(let i=0;i<b.cnt;i++){
+      const x=(i-(b.cnt-1)/2)*pitch;
+      const p=new THREE.Mesh(new THREE.CylinderGeometry(bore/2.2,bore/2.2,.2,20),metal);
+      p.position.set(x,.5,0); p.userData={x,ph:(i*2.4+bi*1.3)}; bank.add(p); pistons.push(p);
+      const rod=box(.04,.45,.04,metal,x,.3,0); p.userData.rod=rod; bank.add(rod);
+      const plug=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.25,8),mat(0xeeeeee,0,.5)); plug.position.set(x,1.35,0); bank.add(plug);
+    }
+  });
+  // induction
+  const mid=new THREE.Group(); mid.position.y=1.7; g.add(mid);
+  if(S.lay==="inline"){ mid.add(box(cl*.9,.14,.5,mat(0x20242b,.3,.6),0,-.1,.0)); }
+  else mid.add(box(cl*.9,.14,.7,mat(0x20242b,.3,.6),0,-.35,0));
+  if(S.ind==="turbo"){
+    const t=new THREE.Mesh(new THREE.TorusGeometry(.28,.13,16,28),mat(0xc0c4cc,.9,.25)); t.position.set(cl/2+.45,.9,0); t.rotation.y=Math.PI/2; g.add(t);
+    g.add(new THREE.Mesh(new THREE.CylinderGeometry(.1,.1,.5,16),metal)).position.set(cl/2+.3,.9,0);
+  } else if(S.ind==="super"){
+    const s=new THREE.Mesh(new THREE.CylinderGeometry(.3,.3,cl*.7,24),mat(0xff8a1f,.6,.3)); s.rotation.z=Math.PI/2; s.position.set(0,1.75+(S.lay==="inline"?.3:0),0); g.add(s);
+  }
+  g.position.y=0; g.position.x=0;
+}
+function animateEngine(t){
+  const speed=S.rpm/7000*.35;
+  pistons.forEach(p=>{
+    const y=.5+Math.sin(t*speed*10+p.userData.ph)*.18;
+    p.position.y=y; p.userData.rod.position.y=y-.28;
+  });
+  if(crank)crank.rotation.x=t*speed*10;
+}
+function showEngStats(){
+  const e=engineStats();
+  $("stats-eng").innerHTML=[
+    ["Power",e.hp+" hp"],["Torque",e.tq+" Nm"],["Weight",e.weight+" kg"],["Fuel economy",e.mpg+" km/l"],["Layout",e.rel]
+  ].map(a=>`<div class="stat">${a[0]}<b>${a[1]}</b></div>`).join("");
+  $("v-disp").textContent=S.disp.toFixed(1)+" L";$("v-comp").textContent=S.comp+":1";$("v-rpm").textContent=S.rpm+" rpm";
+}
+
+/* ---------- refresh ---------- */
+function refresh(){
+  validLayouts();
+  mark("o-body",S.body);mark("o-color",S.color);mark("o-wheel",S.wheel);mark("o-wsize",S.wsize);mark("o-spoil",S.spoil);
+  ["lights","tint","stripe"].forEach(k=>{const b=$("o-extra").querySelector(`[data-k=${k}]`);b.classList.toggle("on",S.extras[k])});
+  mark("o-cyl",S.cyl);mark("o-lay",S.lay);mark("o-ind",S.ind);
+  [...$("o-lay").children].forEach(b=>{b.disabled=(S.cyl===4&&b.dataset.k==="v")||(S.cyl===8&&b.dataset.k!=="v");b.style.opacity=b.disabled?.35:1});
+  buildCar();buildEngine();showCarStats();showEngStats();
+}
+
+/* ---------- init ---------- */
+function init(){
+  buttons("o-body",BODIES,0,k=>S.body=k);
+  buttons("o-color",Object.fromEntries(COLORS.map(c=>[c,c])),0,k=>S.color=+k,true);
+  buttons("o-wheel",WHEELS,0,k=>S.wheel=k);
+  buttons("o-wsize",{16:"16\"",18:"18\"",20:"20\""},0,k=>S.wsize=+k);
+  buttons("o-spoil",{none:"None",lip:"Lip",wing:"Wing"},0,k=>S.spoil=k);
+  const ex=$("o-extra");
+  [["lights","Headlights"],["tint","Tinted glass"],["stripe","Racing stripe"]].forEach(([k,n])=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=n;b.dataset.k=k;
+    b.onclick=()=>{S.extras[k]=!S.extras[k];refresh()};ex.appendChild(b)});
+  buttons("o-cyl",{4:"4",6:"6",8:"8"},0,k=>S.cyl=+k);
+  buttons("o-lay",LAYOUTS,0,k=>S.lay=k);
+  buttons("o-ind",INDS,0,k=>S.ind=k);
+  [["r-disp","disp"],["r-comp","comp"],["r-rpm","rpm"]].forEach(([id,k])=>{
+    const el=$(id); el.value=S[k];
+    el.oninput=()=>{S[k]=+el.value;showEngStats();showCarStats();if(k==="disp")buildEngine()};
+  });
+  carV=makeViewer($("cv-car"),9); engV=makeViewer($("cv-eng"),7);
+  engV.root.position.y=.3;
+  refresh();
+  go(location.hash==="#engine"?"eng":"car");
+  (function loop(t){
+    requestAnimationFrame(loop);
+    if($("page-car").classList.contains("on"))carV.render();
+    else{animateEngine(t/1000);engV.render()}
+  })(0);
+}
+function go(p){
+  $("page-car").classList.toggle("on",p==="car");$("page-eng").classList.toggle("on",p==="eng");
+  $("tab-car").classList.toggle("on",p==="car");$("tab-eng").classList.toggle("on",p==="eng");
+  history.replaceState(null,"",p==="eng"?"#engine":"#car");
+}
+$("tab-car").onclick=()=>go("car");$("tab-eng").onclick=()=>go("eng");
+$("to-eng").onclick=()=>go("eng");$("to-car").onclick=()=>go("car");
+window.addEventListener("hashchange",()=>go(location.hash==="#engine"?"eng":"car"));
+init();
+})();
 </script>
-
 </body>
 </html>
